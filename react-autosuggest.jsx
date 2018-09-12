@@ -208,3 +208,48 @@ class InvoiceAutosuggest extends Component {
 
 
 export default withStyles(styles)(InvoiceAutosuggest);
+
+
+// ***************************FormInput *********
+// pass inputProps
+/**
+ * Created by leonardli on 4/16/17.
+ */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+class FormInput extends Component {
+  render() {
+    const { className, label, type, isRequired, errorMessage,inputProps, ...otherProps } = this.props;
+
+    return (
+      <div className="foundation">
+        <label className={`${errorMessage ? 'is-invalid-label ' : ''}${className || ''}`}>
+          {label}
+          {isRequired && (
+            <span style={{ color: 'red', paddingLeft: '4px' }}>*</span>
+          )}
+          <input
+            className={`${errorMessage ? 'is-invalid-input ' : ''}`}
+            type={type || 'text'}
+            {...inputProps}
+            {...otherProps}
+          />
+          {errorMessage && (
+            <span className="form-error is-visible">{errorMessage}</span>
+          )}
+        </label>
+      </div>
+    );
+  }
+}
+
+FormInput.propTypes = {
+  className: PropTypes.string,
+  errorMessage: PropTypes.string,
+  isRequired: PropTypes.bool,
+  label: PropTypes.string,
+  type: PropTypes.string,
+};
+
+export default FormInput;
